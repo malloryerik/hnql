@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter } from 'react-router-dom'
 
 
 // create httpLink to connect ApolloClient instance with GraphQL API
@@ -22,9 +23,11 @@ const client = new ApolloClient({
 
 // App is wrapped in ApolloClient HOC that gets passed as a prop  
 ReactDOM.render(
-	<ApolloProvider client={client}>
-		<App />
-	</ApolloProvider>,
+	<BrowserRouter>
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>
+	</BrowserRouter>,
 	document.getElementById('root')
 );
 
