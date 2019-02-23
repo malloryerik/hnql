@@ -8,16 +8,19 @@ import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 
+// create httpLink to connect ApolloClient instance with GraphQL API
 const httpLink = createHttpLink({
 	uri: 'http://localhost:4000'
 })
 
+// instantiate ApolloClient by passing httpLink and a new instance of InMemoryCache
 const client = new ApolloClient({
 	link: httpLink,
 	cache: new InMemoryCache()
 })
 
 
+// App is wrapped in ApolloClient HOC that gets passed as a prop  
 ReactDOM.render(
 	<ApolloProvider client={client}>
 		<App />,
