@@ -23,7 +23,7 @@ const client = new ApolloClient({
 // App is wrapped in ApolloClient HOC that gets passed as a prop  
 ReactDOM.render(
 	<ApolloProvider client={client}>
-		<App />,
+		<App />
 	</ApolloProvider>,
 	document.getElementById('root')
 );
