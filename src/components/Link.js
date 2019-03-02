@@ -30,7 +30,7 @@ class Link extends Component {
 		const authToken = localStorage.getItem(AUTH_TOKEN)
 		return (
 			<div className="flex mt2 items-start">
-				<div flex items-center>
+				<div className="flex items-center">
 					<span className="gray">{this.props.index + 1}.</span>
 					{authToken && (
 						<Mutation mutation={VOTE_MUTATION} 
@@ -40,9 +40,11 @@ class Link extends Component {
 							}
 							>
 							{voteMutation => (
-								<span className="ml1 gray f11" onClick={voteMutation}>
+								<span 
+									className="ml1 gray f11 clickable" 
+									onClick={voteMutation}>
 								▲
-					</span>
+								</span>
 							)}
 						</Mutation>
 					)}
