@@ -5,6 +5,8 @@ import Header from './Header'
 import { Route, Switch } from 'react-router-dom'
 import Login from './Login'
 import Hangout from './Hangout'
+import Search from './Search'
+
 
 class App extends Component {
   render() {
@@ -16,7 +18,8 @@ class App extends Component {
             <Route exact path="/" component={LinkList} />
             <Route exact path="/create" component={CreateLink} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/hangout" component={Hangout} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/hangout" component={Hangout} /> 
           </Switch>
         </div>
       </div>

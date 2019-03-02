@@ -14,7 +14,6 @@ const POST_MUTATION = gql`
 	}
 `
 
-
 class CreateLink extends Component {
 	state = {
 		description: '',
