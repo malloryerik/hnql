@@ -2,13 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/App.css'
 import App from './components/App.js'
-import * as serviceWorker from './serviceWorker'
+import * as serviceWorker from './serviceWorker';
 import { createHttpLink } from 'apollo-link-http';
-import { ApolloClient, InMemoryCache } from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, InMemoryCache } from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
-import { setContext } from 'apollo-link-context';
-import { AUTH_TOKEN } from './constants';
+import { setContext } from 'apollo-link-context'
+import { AUTH_TOKEN } from './constants'
+import { WebSocketLink } from 'apollo-link-ws'
+import { split } from 'apollo-link'
+import { getMainDefintion } from 'apollo-utilities'
 
 
 // create httpLink to connect ApolloClient instance with GraphQL API
@@ -26,9 +29,28 @@ const authLink = setContext((_, { headers }) => {
 	}
 }) 
 
+const wsLink = new WebSocketLink({
+	uri: `ws://localhost:4000`,
+	options: {
+		reconnect: true,
+		connectionParams: {
+			authToken: localStorage.getItem(AUTH_TOKEN),
+		}
+	}
+})
+
+const link = split(
+	({ query }) => {
+		const { kind, operation } = getMainDefintion(query)
+		return kind === 'OperationDefinition' && operation === 'subscription'
+	},
+	wsLink,
+	authLink.concat(httpLink)
+)
+
 // instantiate ApolloClient by passing httpLink and a new instance of InMemoryCache
 const client = new ApolloClient({
-	link: authLink.concat(httpLink),
+	link,
 	cache: new InMemoryCache()
 })
 
