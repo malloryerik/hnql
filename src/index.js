@@ -11,7 +11,7 @@ import { setContext } from 'apollo-link-context'
 import { AUTH_TOKEN } from './constants'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
-import { getMainDefintion } from 'apollo-utilities'
+import { getMainDefinition } from 'apollo-utilities'
 
 
 // create httpLink to connect ApolloClient instance with GraphQL API
@@ -41,7 +41,7 @@ const wsLink = new WebSocketLink({
 
 const link = split(
 	({ query }) => {
-		const { kind, operation } = getMainDefintion(query)
+		const { kind, operation } = getMainDefinition(query)
 		return kind === 'OperationDefinition' && operation === 'subscription'
 	},
 	wsLink,
